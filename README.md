@@ -10,3 +10,5 @@ to display the tables from the books database.
 # Credits
 Author: Gregorio Lozada<br/>
 Code for connecting to and getting data from database were provided by<br/>
+the chapter 24 example code from the book Java How to Program: Early Objects, 10/E<br/>
+https://media.pearsoncmg.com/ph/esm/deitel/java_htpeo_10%20/code_examples/code_examples.html
