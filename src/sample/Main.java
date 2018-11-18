@@ -8,18 +8,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-  public enum TABLES {
-    AUTHORS,
-    TITLES,
-  }
-
-  public static TABLES tableToShow;
-
-  public static Stage stage;
+  private static Stage stage;
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    tableToShow = TABLES.AUTHORS;
 
     Parent root = FXMLLoader.load(getClass().getResource("SelectTable.fxml"));
     primaryStage.setTitle("SELECT TABLE");
@@ -28,9 +20,20 @@ public class Main extends Application {
 
     primaryStage.setResizable(false);
 
+    //Spot bugs reported this as dodgy code
     stage = primaryStage;
   }
 
+  /**
+   * Change the primary stage's scene
+   *
+   * @param title title of the stage
+   * @param root root of the scene
+   */
+  public static void changeScene(String title, Parent root){
+    stage.setTitle(title);
+    stage.setScene(new Scene(root));
+  }
 
   public static void main(String[] args) {
     launch(args);

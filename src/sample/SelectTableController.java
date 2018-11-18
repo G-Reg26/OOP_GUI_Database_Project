@@ -13,16 +13,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
-import sample.Main.TABLES;
 
 public class SelectTableController {
+
+  public enum TABLES {
+    AUTHORS,
+    TITLES,
+  }
+
+  static TABLES tableToShow;
 
   @FXML
   private MenuButton menuButton;
 
   @FXML
   private void initialize() {
-    menuButton.setText(Main.tableToShow.toString());
+    tableToShow = TABLES.AUTHORS;
+    menuButton.setText(tableToShow.toString());
   }
 
   /**
@@ -30,7 +37,7 @@ public class SelectTableController {
    */
   @FXML
   void AuthorsMenuItemClicked() {
-    Main.tableToShow = TABLES.AUTHORS;
+    tableToShow = TABLES.AUTHORS;
     menuButton.setText("AUTHORS");
   }
 
@@ -39,7 +46,7 @@ public class SelectTableController {
    */
   @FXML
   void TitlesMenuItemClicked() {
-    Main.tableToShow = TABLES.TITLES;
+    tableToShow = TABLES.TITLES;
     menuButton.setText("TITLES");
   }
 
@@ -51,8 +58,7 @@ public class SelectTableController {
   @FXML
   void onShowTableButtonClicked() throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("TableScreen.fxml"));
-    Main.stage.setTitle(menuButton.getText());
-    Main.stage.setScene(new Scene(root));
+    Main.changeScene(menuButton.getText(), root);
   }
 
 }

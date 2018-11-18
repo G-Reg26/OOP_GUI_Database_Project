@@ -43,7 +43,7 @@ public class TableViewController {
     final String SELECT_QUERY;
 
     //Depending on what table the user wants to see set the SELECT_QUERY
-    switch (Main.tableToShow) {
+    switch (SelectTableController.tableToShow) {
       case AUTHORS:
         SELECT_QUERY = "SELECT authorID, firstName, lastName FROM authors";
         break;
@@ -56,6 +56,7 @@ public class TableViewController {
     }
 
     // use try-with-resources to connect to and query the database
+    // Spot bugs reported this line of code as a security bug
     try (Connection connection = DriverManager.getConnection(DATABASE_URL, "deitel", "deitel");
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(SELECT_QUERY)) {
@@ -93,7 +94,7 @@ public class TableViewController {
       observableList.addAll(databaseObjects);
 
       //Set the table view's columns depending on what table to show
-      switch (Main.tableToShow) {
+      switch (SelectTableController.tableToShow) {
         case AUTHORS:
           Authors.setTableColumns(tableColumns);
           break;
@@ -120,8 +121,7 @@ public class TableViewController {
   @FXML
   private void onSelectTableButtonClicked() throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("SelectTable.fxml"));
-    Main.stage.setTitle("SELECT TABLE");
-    Main.stage.setScene(new Scene(root));
+    Main.changeScene("SELECT TABLE", root);
   }
 
   /**
@@ -130,7 +130,7 @@ public class TableViewController {
    * @return new databaseObjects object
    */
   private DatabaseObjects getDataBaseObjectType() {
-    switch (Main.tableToShow) {
+    switch (SelectTableController.tableToShow) {
       case AUTHORS:
         return new Authors();
       case TITLES:
